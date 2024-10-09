@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Job search app</string>
+    <string name="title_search">Search</string>
+    <string name="title_responses">Responses</string>
+    <string name="title_message">Message</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_favorites">Favorites</string>
+</resources>

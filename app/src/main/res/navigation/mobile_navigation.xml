@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_search">
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.jobsearchapp.ui.home.presently.list.HomeFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="com.example.jobsearchapp.ui.favorites.presently.FavoritesFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.jobsearchapp.ui.notifications.NotificationsFragment"
+        android:label="@string/title_message"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_search_card"
+        android:name="com.example.jobsearchapp.ui.home.presently.card.HomeCardFragment"
+        android:label=""
+        tools:layout="@layout/fragment_home_card" />
+
+    <action
+        android:id="@+id/action_main_to_details"
+        app:destination="@id/navigation_search_card"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
+
+</navigation>
