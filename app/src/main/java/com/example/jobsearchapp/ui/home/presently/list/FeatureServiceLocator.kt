@@ -11,6 +11,7 @@ object FeatureServiceLocator {
         return ViewModelFactory(
             consumeVacanciesUseCase = commonLocator.provideConsumeVacanciesUseCase(),
             consumeOffersUseCase = serviceLocator.provideConsumeOffersUseCase(),
+            changeFavoriteStateUseCase = commonLocator.provideChangeFavoriteStateUseCase(),
             homeStateMapper = provideHomeStateMapper()
         )
     }

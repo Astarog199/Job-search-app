@@ -89,4 +89,10 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+
+    //Coil
+    implementation ("io.coil-kt:coil:1.4.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+    implementation ("androidx.legacy:legacy-support-v4:1.0.0")
 }

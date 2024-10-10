@@ -4,53 +4,36 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobsearchapp.databinding.ItemListHomeBinding
-import com.example.jobsearchapp.ui.home.presently.list.states.HomeState
+import com.example.jobsearchapp.ui.home.presently.list.states.VacanciesState
 
-class HomeAdapter(
-    private val onClick: (HomeState) -> Unit
-) : RecyclerView.Adapter<HomeListHolder>() {
+class HomeVacanciesAdapter(
+    private val onClick: (VacanciesState) -> Unit,
+    private val favoriteClick: (VacanciesState) -> Unit
+) : RecyclerView.Adapter<HomeVacanciesListHolder>() {
 
-    private var values:List<HomeState> = emptyList()
+    private var values:List<VacanciesState> = emptyList()
 
-    fun setData(data: List<HomeState>){
+    fun setData(data: List<VacanciesState>){
         this.values = data
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeListHolder {
-       return HomeListHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeVacanciesListHolder {
+       return HomeVacanciesListHolder(
            binding = ItemListHomeBinding.inflate(
            LayoutInflater.from(parent.context),
            parent,
            false
-       ))
+       ),
+           onClick = onClick,
+           favoriteClick = favoriteClick
+       )
     }
 
     override fun getItemCount(): Int = values.size
 
-    override fun onBindViewHolder(holder: HomeListHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeVacanciesListHolder, position: Int) {
         val item = values.getOrNull(position)
-        with(holder.binding){
-            lookingNumber.text = textFormattingForLookingNumber(item?.lookingNumber)
-//            image.load()
-            title.text = item?.title
-            address.text = item?.address?.town
-            company.text = item?.company
-            experience.text = item?.experience?.previewText
-            publishedDate.text = item?.publishedDate
-        }
-
-        holder.binding.root.setOnClickListener{
-            item?.let {
-                onClick(item)
-            }
-        }
-    }
-
-    private fun textFormattingForLookingNumber(arg : Int?) : String {
-        return when (arg) {
-            null -> ""
-            else -> "Cейчас просматривает $arg человек"
-        }
+        holder.bind(item)
     }
 }

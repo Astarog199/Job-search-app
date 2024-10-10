@@ -14,15 +14,22 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import com.example.jobsearchapp.R
 import com.example.jobsearchapp.databinding.FragmentHomeBinding
-import com.example.jobsearchapp.ui.home.presently.list.adapter.HomeAdapter
-import com.example.jobsearchapp.ui.home.presently.list.states.HomeState
+import com.example.jobsearchapp.ui.home.presently.list.adapter.HomeOffersAdapter
+import com.example.jobsearchapp.ui.home.presently.list.adapter.HomeVacanciesAdapter
+import com.example.jobsearchapp.ui.home.presently.list.states.OffersState
+import com.example.jobsearchapp.ui.home.presently.list.states.VacanciesState
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val adapter = HomeAdapter { state -> onItemClick(state) }
+    private val homeVacanciesAdapter = HomeVacanciesAdapter (
+        onClick = { item -> onItemClick(item) },
+        favoriteClick = {state -> changeFavoriteState(state)}
+    )
+
+    private val homeOffersAdapter = HomeOffersAdapter()
 
     private val viewModel by viewModels <HomeViewModel>{
         FeatureServiceLocator.provideViewModelFactory()
@@ -40,7 +47,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = homeVacanciesAdapter
+        binding.recyclerViewForOffers.adapter = homeOffersAdapter
 
         viewModel.offers()
         viewModel.loadItems()
@@ -57,7 +65,7 @@ class HomeFragment : Fragment() {
                         }
 
                         else -> {
-                            showList(state.vacanciesList)
+                            showList(state.vacanciesList, state.offersList)
                         }
                     }
                 }
@@ -65,8 +73,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showList(vacanciesList: List<HomeState>) {
-        adapter.setData(vacanciesList)
+    private fun showList(vacanciesList: List<VacanciesState>, offersList: List<OffersState>) {
+        homeVacanciesAdapter.setData(vacanciesList)
+        homeOffersAdapter.setData(offersList)
+
         binding.recyclerView.visibility = View.VISIBLE
         binding.progressBar.visibility = View.GONE
     }
@@ -84,12 +94,16 @@ class HomeFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun onItemClick(state: HomeState) {
+    private fun onItemClick(state: VacanciesState) {
         requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
             .navigate(
                 resId = R.id.action_main_to_details,
                 args = bundleOf("item" to state.id)
             )
+    }
+    private fun changeFavoriteState(state: VacanciesState) {
+        println(state.isFavorite)
+        viewModel.changeFavoriteState(state.id)
     }
 
     override fun onDestroyView() {

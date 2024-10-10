@@ -8,8 +8,8 @@ import com.example.jobsearchapp.ui.home.domain.models.ButtonDomainEntity
 import com.example.jobsearchapp.ui.home.domain.models.OffersDomainEntity
 
 class HomeStateMapper {
-    fun toHomeStateEntity(vacancies: CommonDomainEntity): HomeState {
-        return HomeState(
+    fun toHomeStateEntity(vacancies: CommonDomainEntity): VacanciesState {
+        return VacanciesState(
             id = vacancies.id,
             lookingNumber =  vacancies.lookingNumber?: 0,
             title = vacancies.title,

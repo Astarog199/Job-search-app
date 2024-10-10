@@ -2,6 +2,7 @@ package com.example.jobsearchapp.ui.home.presently.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.jobsearchapp.ui.common.domain.ChangeFavoriteStateUseCase
 import com.example.jobsearchapp.ui.common.domain.ConsumeVacanciesUseCase
 import com.example.jobsearchapp.ui.home.domain.ConsumeOffersUseCase
 import com.example.jobsearchapp.ui.home.presently.list.states.HomeScreenState
@@ -18,11 +19,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 
 class HomeViewModel(
     private val consumeVacanciesUseCase: ConsumeVacanciesUseCase,
     private val consumeOffersUseCase: ConsumeOffersUseCase,
+    private val changeFavoriteStateUseCase: ChangeFavoriteStateUseCase,
     private val homeStateMapper: HomeStateMapper
 ) : ViewModel() {
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -37,9 +40,13 @@ class HomeViewModel(
             }
             .onStart { _items.update { list -> list.copy(isLoading = true) } }
             .onEach { offers ->
-                println(offers.map { v -> v.title })
                 _items.update { state ->
-                    state.copy(isLoading = false)
+                    state.copy(isLoading = false, offersList = offers)
+                }
+            }
+            .catch {
+                _items.update { screenState ->
+                    screenState.copy(hasError = true)
                 }
             }
             .launchIn(viewModelScope)
@@ -55,7 +62,6 @@ class HomeViewModel(
                 _items.update { list -> list.copy(isLoading = true) }
             }
             .onEach { vacancies ->
-                println(vacancies.map { v -> v.title })
                 _items.update { state ->
                     state.copy(isLoading = false, vacanciesList = vacancies)
                 }
@@ -70,5 +76,11 @@ class HomeViewModel(
 
     fun errorShown() {
         _items.update { screenState -> screenState.copy(hasError = false) }
+    }
+
+    fun changeFavoriteState(id: String){
+        scope.launch {
+            changeFavoriteStateUseCase(id = id)
+        }
     }
 }
