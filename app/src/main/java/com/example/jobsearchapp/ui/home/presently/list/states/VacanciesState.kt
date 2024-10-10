@@ -1,6 +1,6 @@
 package com.example.jobsearchapp.ui.home.presently.list.states
 
-data class HomeState (
+data class VacanciesState (
     val id: String = "",
     val lookingNumber: Int = 0,
     val title: String = "",
