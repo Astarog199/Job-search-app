@@ -5,12 +5,11 @@ import retrofit2.await
 
 class CommonRemoteDataSource(private val apiService: CommonApiService) {
     suspend fun getDTO(): CommonDto {
-        return  apiService.getDto().await()
-//        return try {
-//            homeApiService.getDto().await()
-//        } catch (e: Exception) {
-//            println("Error while getting query result from server: $e")
-//            CommonDto(offers = emptyList(), vacancies =  emptyList())
-//        }
+        return try {
+            apiService.getDto().await()
+        } catch (e: Exception) {
+            println("Error while getting query result from server: $e")
+            CommonDto(offers = emptyList(), vacancies =  emptyList())
+        }
     }
 }

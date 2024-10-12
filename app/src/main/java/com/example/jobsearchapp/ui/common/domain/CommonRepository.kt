@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface CommonRepository {
     fun consumeVacancies(): Flow<List<CommonDomainEntity>>
     fun consumeFavoriteVacancies(): Flow<List<CommonDomainEntity>>
-    suspend fun changeFavoriteState(id: String)
+    suspend fun changeFavoriteState(vacancies: CommonDomainEntity)
 }

@@ -17,7 +17,7 @@ class CommonRepositoryImpl(
     private val commonDomainMapper: CommonDomainMapper,
     private val commonLocalDataSource: CommonLocalDataSource,
     private val coroutineDispatcher: CoroutineDispatcher,
-    ) : CommonRepository {
+) : CommonRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
     private var dto = CommonDto(offers = emptyList(), vacancies = emptyList())
 
@@ -43,17 +43,9 @@ class CommonRepositoryImpl(
             .map { it.map(commonDomainMapper::toCommonDomainEntity) }
     }
 
-    override suspend fun changeFavoriteState(id: String) {
-        commonLocalDataSource.getVacanciesEntity().map {
-            for (i in it){
-                if (i.id == id) {
-                   val res = i.copy(isFavorite = !i.isFavorite)
-                    commonLocalDataSource.changeFavoriteState(res)
-                    break
-                }
-            }
-        }
-
+    override suspend fun changeFavoriteState(vacancies: CommonDomainEntity) {
+        val entity = commonDomainMapper.toVacanciesEntity(vacancies)
+        commonLocalDataSource.changeFavoriteState(entity)
     }
 
     private suspend fun getApiService() {

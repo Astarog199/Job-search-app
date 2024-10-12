@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
     }
     private fun changeFavoriteState(state: VacanciesState) {
         println(state.isFavorite)
-        viewModel.changeFavoriteState(state.id)
+        viewModel.changeFavoriteState(state)
     }
 
     override fun onDestroyView() {

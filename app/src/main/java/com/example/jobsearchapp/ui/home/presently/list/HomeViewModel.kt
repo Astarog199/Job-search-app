@@ -7,6 +7,7 @@ import com.example.jobsearchapp.ui.common.domain.ConsumeVacanciesUseCase
 import com.example.jobsearchapp.ui.home.domain.ConsumeOffersUseCase
 import com.example.jobsearchapp.ui.home.presently.list.states.HomeScreenState
 import com.example.jobsearchapp.ui.home.presently.list.states.HomeStateMapper
+import com.example.jobsearchapp.ui.home.presently.list.states.VacanciesState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -78,9 +79,10 @@ class HomeViewModel(
         _items.update { screenState -> screenState.copy(hasError = false) }
     }
 
-    fun changeFavoriteState(id: String){
+    fun changeFavoriteState(vacancies: VacanciesState){
         scope.launch {
-            changeFavoriteStateUseCase(id = id)
+            val commonDomainEntity = homeStateMapper.toCommonDomainEntity(vacancies.copy(isFavorite = !vacancies.isFavorite))
+            changeFavoriteStateUseCase(commonDomainEntity)
         }
     }
 }

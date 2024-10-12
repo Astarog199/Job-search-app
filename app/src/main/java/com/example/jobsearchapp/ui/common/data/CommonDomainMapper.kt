@@ -50,4 +50,52 @@ class CommonDomainMapper {
     private fun toList(inputString: String): List<String> {
         return inputString.split(", ")
     }
+
+    fun toVacanciesEntity(vacancies: CommonDomainEntity): VacanciesEntity {
+        return VacanciesEntity(
+            id = vacancies.id,
+            lookingNumber = vacancies.lookingNumber,
+            title = vacancies.title,
+            address = toAddressString(vacancies.address),
+            company = vacancies.company,
+            experience = toExperienceString(vacancies.experience),
+            publishedDate = vacancies.publishedDate,
+            isFavorite = vacancies.isFavorite,
+            salary = toSalaryDomainEntity(vacancies.salary),
+            schedules = fromList(vacancies.schedules),
+            appliedNumber = vacancies.appliedNumber,
+            description = vacancies.description,
+            responsibilities = vacancies.responsibilities,
+            questions = fromList(vacancies.questions)
+        )
+    }
+
+    private fun toAddressString(address: AddressCommonDomainEntity): String {
+        var text = ""
+        if (address.town.isNotEmpty()){
+            text += address.town + ", "
+        }
+
+        if (address.street.isNotEmpty()){
+            text += address.town + ", "
+        }
+
+        if (address.house.isNotEmpty()){
+            text += address.town
+        }
+
+        return text
+    }
+
+    private fun toExperienceString(experience: ExperienceDomainEntity) : String {
+        return experience.previewText + ", " + experience.text
+    }
+
+    private fun toSalaryDomainEntity(salary: SalaryDomainEntity) : String {
+        return  salary.full
+    }
+
+    private fun fromList(schedules: List<String?>): String {
+        return schedules.joinToString (", ")
+    }
 }
