@@ -1,11 +1,11 @@
-package com.example.jobsearchapp.ui.common.data.dto
+package com.example.jobsearchapp.ui.home.data.models.dto
 
-import com.example.jobsearchapp.ui.home.data.models.dto.OffersDto
+
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CommonDto (
+data class HomeDto (
     @Json(name = "offers")  val offers: List<OffersDto>,
     @Json(name ="vacancies") val vacancies: List <VacanciesDto>
 )

@@ -1,9 +1,9 @@
 package com.example.jobsearchapp.ui.common.data
 
-import com.example.jobsearchapp.ui.common.data.dto.AddressDto
-import com.example.jobsearchapp.ui.common.data.dto.ExperienceDto
-import com.example.jobsearchapp.ui.common.data.dto.SalaryDto
-import com.example.jobsearchapp.ui.common.data.dto.VacanciesDto
+import com.example.jobsearchapp.ui.common.data.models.AddressDto
+import com.example.jobsearchapp.ui.common.data.models.ExperienceDto
+import com.example.jobsearchapp.ui.common.data.models.SalaryDto
+import com.example.jobsearchapp.ui.common.data.models.VacanciesDto
 import com.example.jobsearchapp.ui.common.data.room.VacanciesEntity
 
 class CommonDataMapper {

@@ -1,6 +1,6 @@
 package com.example.jobsearchapp.ui.common.data
 
-import com.example.jobsearchapp.ui.common.data.dto.CommonDto
+import com.example.jobsearchapp.ui.common.data.models.CommonDto
 import com.example.jobsearchapp.ui.common.domain.CommonRepository
 import com.example.jobsearchapp.ui.common.domain.models.CommonDomainEntity
 import kotlinx.coroutines.CoroutineDispatcher
@@ -8,7 +8,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 

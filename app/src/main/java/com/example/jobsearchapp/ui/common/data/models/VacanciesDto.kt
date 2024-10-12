@@ -1,4 +1,4 @@
-package com.example.jobsearchapp.ui.common.data.dto
+package com.example.jobsearchapp.ui.common.data.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

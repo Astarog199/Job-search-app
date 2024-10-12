@@ -1,7 +1,6 @@
 package com.example.jobsearchapp.ui.home.data
 
-import com.example.jobsearchapp.ui.common.data.dto.CommonDto
-import com.example.jobsearchapp.ui.home.data.models.OffersDataEntity
+import com.example.jobsearchapp.ui.home.data.models.dto.HomeDto
 import com.example.jobsearchapp.ui.home.domain.HomeRepository
 import com.example.jobsearchapp.ui.home.domain.models.OffersDomainEntity
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,7 +18,7 @@ class HomeRepositoryImpl(
     private val coroutineDispatcher: CoroutineDispatcher,
 ) : HomeRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
-    private var dto = CommonDto(offers = emptyList(), vacancies = emptyList())
+    private var dto = HomeDto(offers = emptyList(), vacancies = emptyList())
 
     init {
         scope.launch {

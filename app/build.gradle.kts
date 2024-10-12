@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.kotlinxSerialization)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -80,7 +81,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
-    implementation("org.jetbrains.kotlin:kotlin-serialization:1.9.0")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:1.8.10")
 
     //datastore
     implementation("androidx.datastore:datastore:1.1.1:")

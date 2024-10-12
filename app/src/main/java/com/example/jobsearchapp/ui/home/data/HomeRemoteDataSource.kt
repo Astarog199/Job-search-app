@@ -1,16 +1,16 @@
 package com.example.jobsearchapp.ui.home.data
 
-import com.example.jobsearchapp.ui.common.data.dto.CommonDto
+import com.example.jobsearchapp.ui.home.data.models.dto.HomeDto
 import retrofit2.await
 
 class HomeRemoteDataSource (private val apiService: HomeApiService) {
 
-    suspend fun getDTO(): CommonDto {
+    suspend fun getDTO(): HomeDto {
         return try {
             apiService.getHomeDto().await()
         } catch (e: Exception) {
             println("Error while getting query result from server: $e")
-            CommonDto(offers = emptyList(), vacancies =  emptyList())
+            HomeDto(offers = emptyList(), vacancies =  emptyList())
         }
     }
 }

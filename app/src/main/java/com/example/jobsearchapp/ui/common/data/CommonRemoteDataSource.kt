@@ -1,6 +1,6 @@
 package com.example.jobsearchapp.ui.common.data
 
-import com.example.jobsearchapp.ui.common.data.dto.CommonDto
+import com.example.jobsearchapp.ui.common.data.models.CommonDto
 import retrofit2.await
 
 class CommonRemoteDataSource(private val apiService: CommonApiService) {
