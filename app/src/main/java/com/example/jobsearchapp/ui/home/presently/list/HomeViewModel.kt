@@ -7,6 +7,7 @@ import com.example.jobsearchapp.ui.common.domain.ConsumeVacanciesUseCase
 import com.example.jobsearchapp.ui.home.domain.ConsumeOffersUseCase
 import com.example.jobsearchapp.ui.home.presently.list.states.HomeScreenState
 import com.example.jobsearchapp.ui.home.presently.list.states.HomeStateMapper
+import com.example.jobsearchapp.ui.home.presently.list.states.OffersState
 import com.example.jobsearchapp.ui.home.presently.list.states.VacanciesState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -32,39 +34,24 @@ class HomeViewModel(
     private val scope = CoroutineScope(Dispatchers.IO)
     private val _items = MutableStateFlow(HomeScreenState())
     val items: StateFlow<HomeScreenState> = _items.asStateFlow()
-
-    fun offers() {
-        consumeOffersUseCase()
-            .filter { it.isNotEmpty() }
-            .map { offers ->
-                offers.map(homeStateMapper::toOffersHomeStateEntity)
-            }
-            .onStart { _items.update { list -> list.copy(isLoading = true) } }
-            .onEach { offers ->
-                _items.update { state ->
-                    state.copy(isLoading = false, offersList = offers)
-                }
-            }
-            .catch {
-                _items.update { screenState ->
-                    screenState.copy(hasError = true)
-                }
-            }
-            .launchIn(viewModelScope)
-    }
+    private var offersEntities: List<OffersState> = mutableListOf()
+    private var vacanciesEntities: List<VacanciesState> = mutableListOf()
 
     fun loadItems() {
-        consumeVacanciesUseCase()
-            .filter { it.isNotEmpty() }
-            .map { vacancies ->
-                vacancies.map(homeStateMapper::toHomeStateEntity)
-            }
+        combine(
+            consumeOffersUseCase(),
+            consumeVacanciesUseCase()
+        ) { offers, vacancies ->
+            offersEntities = offers.map(homeStateMapper::toOffersHomeStateEntity)
+            vacanciesEntities = vacancies.map(homeStateMapper::toHomeStateEntity)
+        }
+            .filter { offersEntities.isNotEmpty() || vacanciesEntities.isNotEmpty() }
             .onStart {
                 _items.update { list -> list.copy(isLoading = true) }
             }
-            .onEach { vacancies ->
+            .onEach {
                 _items.update { state ->
-                    state.copy(isLoading = false, vacanciesList = vacancies)
+                    state.copy(isLoading = false, offersList = offersEntities, vacanciesList = vacanciesEntities)
                 }
             }
             .catch {
@@ -79,9 +66,10 @@ class HomeViewModel(
         _items.update { screenState -> screenState.copy(hasError = false) }
     }
 
-    fun changeFavoriteState(vacancies: VacanciesState){
+    fun changeFavoriteState(vacancies: VacanciesState) {
         scope.launch {
-            val commonDomainEntity = homeStateMapper.toCommonDomainEntity(vacancies.copy(isFavorite = !vacancies.isFavorite))
+            val commonDomainEntity =
+                homeStateMapper.toCommonDomainEntity(vacancies.copy(isFavorite = !vacancies.isFavorite))
             changeFavoriteStateUseCase(commonDomainEntity)
         }
     }

@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
         binding.recyclerView.adapter = homeVacanciesAdapter
         binding.recyclerViewForOffers.adapter = homeOffersAdapter
 
-        viewModel.offers()
         viewModel.loadItems()
 
         viewLifecycleOwner.lifecycleScope.launch {
