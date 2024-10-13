@@ -1,13 +1,11 @@
 package com.example.jobsearchapp.ui.home.presently.list.adapter
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobsearchapp.R
 import com.example.jobsearchapp.databinding.ItemOffersHomeBinding
 import com.example.jobsearchapp.ui.home.presently.list.states.OffersState
-import com.example.jobsearchapp.ServiceLocator.applicationContext
 
 
 class HomeOffersAdapter : RecyclerView.Adapter<HomeOffersListHolder>() {

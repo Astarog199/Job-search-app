@@ -37,10 +37,11 @@ class CommonRepositoryImpl(
 
     override fun consumeFavoriteVacancies(): Flow<List<CommonDomainEntity>> {
         return commonLocalDataSource.getVacanciesEntity()
-            .filter { favorites ->
-                favorites.isEmpty()
+            .map {
+                it.filter { favorites ->
+                    favorites.isFavorite
+                }.map(commonDomainMapper::toCommonDomainEntity)
             }
-            .map { it.map(commonDomainMapper::toCommonDomainEntity) }
     }
 
     override suspend fun changeFavoriteState(vacancies: CommonDomainEntity) {

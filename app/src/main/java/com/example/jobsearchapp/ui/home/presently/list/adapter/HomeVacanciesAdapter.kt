@@ -3,7 +3,7 @@ package com.example.jobsearchapp.ui.home.presently.list.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.jobsearchapp.databinding.ItemListHomeBinding
+import com.example.jobsearchapp.databinding.ItemVacanciesListBinding
 import com.example.jobsearchapp.ui.home.presently.list.states.VacanciesState
 
 class HomeVacanciesAdapter(
@@ -20,7 +20,7 @@ class HomeVacanciesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeVacanciesListHolder {
        return HomeVacanciesListHolder(
-           binding = ItemListHomeBinding.inflate(
+           binding = ItemVacanciesListBinding.inflate(
            LayoutInflater.from(parent.context),
            parent,
            false

@@ -1,18 +1,18 @@
-package com.example.jobsearchapp.ui.home.presently.list.adapter
+package com.example.jobsearchapp.ui.favorites.presently.list.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobsearchapp.R
-import com.example.jobsearchapp.ui.home.presently.list.states.VacanciesState
+import com.example.jobsearchapp.ui.favorites.presently.list.states.FavoriteState
 import com.example.jobsearchapp.databinding.ItemVacanciesListBinding as Item
 
-class HomeVacanciesListHolder(
-    val binding:Item,
-    private val onClick: (VacanciesState) -> Unit,
-    private val favoriteClick: (VacanciesState) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
+class FavoriteListHolder(
+    val binding: Item,
+    private val onClick: (FavoriteState) -> Unit,
+    private val favoriteClick: (FavoriteState) -> Unit
+) : RecyclerView.ViewHolder(binding.root)  {
 
-    fun bind(item: VacanciesState?){
-        with(binding) {
+    fun bind(item: FavoriteState?){
+        with(binding){
             lookingNumber.text = textFormattingForLookingNumber(item?.lookingNumber)
 
             getImage(item?.isFavorite)?.let { imageButton.setImageResource(it) }
@@ -36,7 +36,6 @@ class HomeVacanciesListHolder(
         }
     }
 
-
     private fun textFormattingForLookingNumber(arg : Int?) : String {
         return when (arg) {
             null -> ""
@@ -44,7 +43,7 @@ class HomeVacanciesListHolder(
         }
     }
 
-    private fun getImage (isFavorite: Boolean?) : Int? {
+    private fun getImage (isFavorite: Boolean?) : Int {
         return when (isFavorite) {
             true -> R.drawable.active_favorite
             else -> R.drawable.favorite

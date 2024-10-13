@@ -10,6 +10,7 @@ import com.example.jobsearchapp.ui.common.data.CommonRemoteDataSource
 import com.example.jobsearchapp.ui.common.data.CommonRepositoryImpl
 import com.example.jobsearchapp.ui.common.data.room.CommonDao
 import com.example.jobsearchapp.ui.common.domain.ChangeFavoriteStateUseCase
+import com.example.jobsearchapp.ui.common.domain.ConsumeFavoriteVacanciesUseCase
 import com.example.jobsearchapp.ui.common.domain.ConsumeVacanciesCardUseCase
 import com.example.jobsearchapp.ui.common.domain.ConsumeVacanciesUseCase
 import kotlinx.coroutines.CoroutineDispatcher
@@ -35,6 +36,10 @@ object ServiceLocator {
 
     fun provideConsumeVacanciesCardUseCase(): ConsumeVacanciesCardUseCase {
         return ConsumeVacanciesCardUseCase(repository = provideRepository())
+    }
+
+    fun provideConsumeFavoriteVacanciesUseCase(): ConsumeFavoriteVacanciesUseCase {
+        return ConsumeFavoriteVacanciesUseCase(repository = provideRepository())
     }
 
     private fun provideOkHttpClient(): OkHttpClient {
