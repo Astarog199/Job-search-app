@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.jobsearchapp.App
 import com.example.jobsearchapp.databinding.FragmentHomeCardBinding
 import com.example.jobsearchapp.ui.home.presently.card.states.CardState
+import dagger.Provides
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,7 +25,6 @@ class HomeCardFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: HomeCardViewModelFactory
-
 
     private val viewModel: HomeCardViewModel by viewModels{
         viewModelFactory
@@ -49,11 +49,12 @@ class HomeCardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        arguments.let {
-//            itemId = it?.getString("item").toString()
-//        }
+        arguments.let {
+            context
+            itemId = it?.getString("item").toString()
+        }
 
-        viewModel.loadCard()
+        viewModel.loadCard(itemId)
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

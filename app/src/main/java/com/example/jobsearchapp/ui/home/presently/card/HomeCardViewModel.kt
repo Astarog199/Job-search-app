@@ -20,12 +20,11 @@ import kotlinx.coroutines.launch
 class HomeCardViewModel(
     private val consumeVacanciesCardUseCase: ConsumeVacanciesCardUseCase,
     private val cardStateMapper: CardStateMapper,
-    private val vacanciesID: String =""
 ) : ViewModel() {
     private val _state = MutableStateFlow(CardScreenStates())
     val state: StateFlow<CardScreenStates> = _state.asStateFlow()
 
-    fun loadCard() {
+    fun loadCard(vacanciesID: String) {
         consumeVacanciesCardUseCase(vacanciesID)
             .map { card ->
                 cardStateMapper.toHomeCardState(card)
@@ -44,7 +43,7 @@ class HomeCardViewModel(
                 }
             }
             .catch {
-                cheduleRefresh()
+                cheduleRefresh(vacanciesID)
 
                 _state.update { cardScreenStates ->
                     cardScreenStates.copy(hasError = true)
@@ -53,11 +52,11 @@ class HomeCardViewModel(
             .launchIn(viewModelScope)
     }
 
-    private suspend fun cheduleRefresh() {
+    private suspend fun cheduleRefresh(vacanciesID: String) {
         viewModelScope.launch {
             delay(5000)
             clearError()
-            loadCard()
+            loadCard(vacanciesID)
         }
     }
 

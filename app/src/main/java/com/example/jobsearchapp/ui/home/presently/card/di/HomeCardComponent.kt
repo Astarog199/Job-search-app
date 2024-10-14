@@ -13,5 +13,4 @@ interface HomeCardComponent {
         fun create():HomeCardComponent
     }
     fun inject(fragment: HomeCardFragment)
-    fun vacanciesID(vacanciesID:String)
 }
