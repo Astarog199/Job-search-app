@@ -6,8 +6,9 @@ import com.example.jobsearchapp.ui.common.domain.models.ExperienceDomainEntity
 import com.example.jobsearchapp.ui.common.domain.models.SalaryDomainEntity
 import com.example.jobsearchapp.ui.home.domain.models.ButtonDomainEntity
 import com.example.jobsearchapp.ui.home.domain.models.OffersDomainEntity
+import javax.inject.Inject
 
-class HomeStateMapper {
+class HomeStateMapper @Inject constructor(){
     fun toHomeStateEntity(vacancies: CommonDomainEntity): VacanciesState {
         return VacanciesState(
             id = vacancies.id,

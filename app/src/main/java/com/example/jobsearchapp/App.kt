@@ -4,16 +4,18 @@ import android.app.Application
 import androidx.room.Room
 
 import com.example.jobsearchapp.ui.common.data.room.CommonDB
-import com.example.jobsearchapp.ServiceLocator as serviceLocator
-import com.example.jobsearchapp.ui.common.ServiceLocator as commonLocator
+import com.example.jobsearchapp.di.AppComponent
+import com.example.jobsearchapp.di.DaggerAppComponent
+
 
 class App: Application() {
     lateinit var db: CommonDB
+    lateinit var appComponent: AppComponent
+
 
     override fun onCreate() {
         super.onCreate()
-        serviceLocator.applicationContext = this
-        commonLocator.applicationContext = this
+        appComponent = DaggerAppComponent.factory().create(this)
 
         db = Room.databaseBuilder(
             applicationContext,

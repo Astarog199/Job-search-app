@@ -1,5 +1,6 @@
 package com.example.jobsearchapp.ui.home.presently.list
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import com.example.jobsearchapp.App
 import com.example.jobsearchapp.R
 import com.example.jobsearchapp.databinding.FragmentHomeBinding
 import com.example.jobsearchapp.ui.home.presently.list.adapter.HomeOffersAdapter
@@ -19,9 +21,9 @@ import com.example.jobsearchapp.ui.home.presently.list.adapter.HomeVacanciesAdap
 import com.example.jobsearchapp.ui.home.presently.list.states.OffersState
 import com.example.jobsearchapp.ui.home.presently.list.states.VacanciesState
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val homeVacanciesAdapter = HomeVacanciesAdapter (
@@ -31,8 +33,20 @@ class HomeFragment : Fragment() {
 
     private val homeOffersAdapter = HomeOffersAdapter()
 
-    private val viewModel by viewModels <HomeViewModel>{
-        FeatureServiceLocator.provideViewModelFactory()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel: HomeViewModel by viewModels {
+        viewModelFactory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (activity?.applicationContext as App).appComponent
+            .homeListFragmentFactory()
+            .create()
+            .inject(this)
     }
 
     override fun onCreateView(

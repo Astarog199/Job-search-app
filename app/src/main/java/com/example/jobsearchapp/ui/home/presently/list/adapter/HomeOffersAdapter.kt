@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.jobsearchapp.R
 import com.example.jobsearchapp.databinding.ItemOffersHomeBinding
 import com.example.jobsearchapp.ui.home.presently.list.states.OffersState
+import javax.inject.Inject
 
 
-class HomeOffersAdapter : RecyclerView.Adapter<HomeOffersListHolder>() {
+class HomeOffersAdapter @Inject constructor() : RecyclerView.Adapter<HomeOffersListHolder>() {
 
     private var values:List<OffersState> = emptyList()
 

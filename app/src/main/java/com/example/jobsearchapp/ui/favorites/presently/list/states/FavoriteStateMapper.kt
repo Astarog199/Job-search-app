@@ -4,9 +4,10 @@ import com.example.jobsearchapp.ui.common.domain.models.AddressCommonDomainEntit
 import com.example.jobsearchapp.ui.common.domain.models.CommonDomainEntity
 import com.example.jobsearchapp.ui.common.domain.models.ExperienceDomainEntity
 import com.example.jobsearchapp.ui.common.domain.models.SalaryDomainEntity
+import javax.inject.Inject
 
 
-class FavoriteStateMapper {
+class FavoriteStateMapper @Inject constructor(){
     fun toFavoriteState(vacancies: CommonDomainEntity): FavoriteState {
         return FavoriteState(
             id = vacancies.id,

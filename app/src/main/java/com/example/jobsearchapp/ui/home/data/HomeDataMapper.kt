@@ -4,15 +4,9 @@ import com.example.jobsearchapp.ui.home.data.models.OffersDataEntity
 import com.example.jobsearchapp.ui.home.data.models.ButtonDataEntity
 import com.example.jobsearchapp.ui.home.data.models.dto.OffersDto
 import com.example.jobsearchapp.ui.home.data.models.dto.ButtonDto
+import javax.inject.Inject
 
-class HomeDataMapper {
-//    fun toEntity(dto: HomeDto): DataEntity {
-//        return DataEntity(
-//            offers = toOffersEntity(dto.offers),
-//            vacancies = toVacanciesDataEntityList(dto.vacancies)
-//        )
-//    }
-
+class HomeDataMapper @Inject constructor(){
 
     fun toOffersDataEntity(offers: OffersDto): OffersDataEntity {
         return OffersDataEntity(
@@ -22,8 +16,6 @@ class HomeDataMapper {
             link = offers.link
         )
     }
-
-
 
     private fun toButtonDataEntity(button: ButtonDto): ButtonDataEntity {
         return ButtonDataEntity(

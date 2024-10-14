@@ -4,8 +4,10 @@ import com.example.jobsearchapp.ui.common.domain.models.AddressCommonDomainEntit
 import com.example.jobsearchapp.ui.common.domain.models.CommonDomainEntity
 import com.example.jobsearchapp.ui.common.domain.models.ExperienceDomainEntity
 import com.example.jobsearchapp.ui.common.domain.models.SalaryDomainEntity
+import javax.inject.Inject
 
-class CardStateMapper {
+class CardStateMapper @Inject constructor() {
+
     fun toHomeCardState(vacancies: CommonDomainEntity): CardState {
         return CardState(
             id = vacancies.id,

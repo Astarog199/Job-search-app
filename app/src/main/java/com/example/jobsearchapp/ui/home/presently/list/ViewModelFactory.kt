@@ -2,13 +2,16 @@ package com.example.jobsearchapp.ui.home.presently.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.jobsearchapp.di.FeatureScope
 import com.example.jobsearchapp.ui.common.domain.ChangeFavoriteStateUseCase
 import com.example.jobsearchapp.ui.common.domain.ConsumeVacanciesUseCase
 import com.example.jobsearchapp.ui.home.domain.ConsumeOffersUseCase
 
 import com.example.jobsearchapp.ui.home.presently.list.states.HomeStateMapper
+import javax.inject.Inject
 
-class ViewModelFactory(
+@FeatureScope
+class ViewModelFactory @Inject constructor(
     private val consumeVacanciesUseCase: ConsumeVacanciesUseCase,
     private val consumeOffersUseCase: ConsumeOffersUseCase,
     private val changeFavoriteStateUseCase: ChangeFavoriteStateUseCase,
@@ -17,6 +20,7 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when{
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                @Suppress("UNCHECKED_CAST")
                 return HomeViewModel(
                     consumeVacanciesUseCase = consumeVacanciesUseCase,
                     consumeOffersUseCase = consumeOffersUseCase,

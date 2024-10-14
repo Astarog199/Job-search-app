@@ -5,8 +5,9 @@ import com.example.jobsearchapp.ui.common.data.models.ExperienceDto
 import com.example.jobsearchapp.ui.common.data.models.SalaryDto
 import com.example.jobsearchapp.ui.common.data.models.VacanciesDto
 import com.example.jobsearchapp.ui.common.data.room.VacanciesEntity
+import javax.inject.Inject
 
-class CommonDataMapper {
+class CommonDataMapper @Inject constructor() {
     fun toVacanciesEntity(vacancies: VacanciesDto): VacanciesEntity {
         return VacanciesEntity(
             id = vacancies.id,

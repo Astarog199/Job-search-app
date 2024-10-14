@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobsearchapp.databinding.ItemVacanciesListBinding
 import com.example.jobsearchapp.ui.home.presently.list.states.VacanciesState
+import javax.inject.Inject
 
-class HomeVacanciesAdapter(
+class HomeVacanciesAdapter @Inject constructor(
     private val onClick: (VacanciesState) -> Unit,
     private val favoriteClick: (VacanciesState) -> Unit
 ) : RecyclerView.Adapter<HomeVacanciesListHolder>() {

@@ -1,5 +1,6 @@
-package com.example.jobsearchapp.ui.favorites.presently
+package com.example.jobsearchapp.ui.favorites.presently.list
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +13,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import com.example.jobsearchapp.App
 import com.example.jobsearchapp.R
 import com.example.jobsearchapp.databinding.FragmentFavoritesBinding
 import com.example.jobsearchapp.ui.favorites.presently.list.adapter.FavoriteAdapter
 import com.example.jobsearchapp.ui.favorites.presently.list.states.FavoriteState
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class FavoritesFragment : Fragment() {
 
@@ -28,8 +31,20 @@ class FavoritesFragment : Fragment() {
         favoriteClick = {state -> changeFavoriteState(state)}
     )
 
-    private val viewModel by viewModels <FavoritesViewModel> {
-        FeatureServiceLocator.provideViewModelFactory()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel: FavoritesViewModel by viewModels {
+        viewModelFactory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (activity?.applicationContext as App).appComponent
+            .favoritesFragmentFactory()
+            .create()
+            .inject(this)
     }
 
     override fun onCreateView(

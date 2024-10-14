@@ -2,8 +2,11 @@ package com.example.jobsearchapp.ui.common.data
 
 import com.example.jobsearchapp.ui.common.data.models.CommonDto
 import retrofit2.await
+import javax.inject.Inject
 
-class CommonRemoteDataSource(private val apiService: CommonApiService) {
+class CommonRemoteDataSource @Inject constructor(
+    private val apiService: CommonApiService
+) {
     suspend fun getDTO(): CommonDto {
         return try {
             apiService.getDto().await()

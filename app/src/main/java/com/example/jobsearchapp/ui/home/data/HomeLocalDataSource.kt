@@ -11,8 +11,9 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import javax.inject.Inject
 
-class HomeLocalDataSource( private val dataStore: DataStore<Preferences>) {
+class HomeLocalDataSource @Inject constructor (private val dataStore: DataStore<Preferences>) {
     fun consume() : Flow<List<OffersDataEntity>> = dataStore.data
         .map(::mapProductFromPrefs)
 

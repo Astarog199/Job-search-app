@@ -4,9 +4,10 @@ import com.example.jobsearchapp.ui.home.data.models.ButtonDataEntity
 import com.example.jobsearchapp.ui.home.data.models.OffersDataEntity
 import com.example.jobsearchapp.ui.home.domain.models.ButtonDomainEntity
 import com.example.jobsearchapp.ui.home.domain.models.OffersDomainEntity
+import javax.inject.Inject
 
 
-class HomeDomainMapper {
+class HomeDomainMapper @Inject constructor() {
     fun toOffersDomainEntity(offers: OffersDataEntity): OffersDomainEntity {
         return OffersDomainEntity(
             id =  offers.id,

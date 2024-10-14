@@ -2,8 +2,9 @@ package com.example.jobsearchapp.ui.home.data
 
 import com.example.jobsearchapp.ui.home.data.models.dto.HomeDto
 import retrofit2.await
+import javax.inject.Inject
 
-class HomeRemoteDataSource (private val apiService: HomeApiService) {
+class HomeRemoteDataSource @Inject constructor(private val apiService: HomeApiService) {
 
     suspend fun getDTO(): HomeDto {
         return try {

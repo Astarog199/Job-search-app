@@ -1,5 +1,6 @@
 package com.example.jobsearchapp.ui.home.presently.card
 
+import android.content.Context
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,21 +11,32 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.jobsearchapp.App
 import com.example.jobsearchapp.databinding.FragmentHomeCardBinding
 import com.example.jobsearchapp.ui.home.presently.card.states.CardState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class HomeCardFragment : Fragment() {
-
-    private val scope = CoroutineScope(Dispatchers.IO)
     private var _binding: FragmentHomeCardBinding? = null
     private val binding get() = _binding!!
     private var itemId = ""
 
-    private val viewModel: HomeCardViewModel by viewModels<HomeCardViewModel> {
-        FeatureServiceLocator.provideCardViewModelFactory(itemId)
+    @Inject
+    lateinit var viewModelFactory: HomeCardViewModelFactory
+
+
+    private val viewModel: HomeCardViewModel by viewModels{
+        viewModelFactory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (activity?.applicationContext as App).appComponent
+            .homeCardFragmentFactory()
+            .create()
+            .inject(this)
     }
 
     override fun onCreateView(
@@ -37,9 +49,9 @@ class HomeCardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments.let {
-            itemId = it?.getString("item").toString()
-        }
+//        arguments.let {
+//            itemId = it?.getString("item").toString()
+//        }
 
         viewModel.loadCard()
 

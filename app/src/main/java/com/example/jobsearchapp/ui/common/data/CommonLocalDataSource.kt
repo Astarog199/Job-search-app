@@ -3,8 +3,9 @@ package com.example.jobsearchapp.ui.common.data
 import com.example.jobsearchapp.ui.common.data.room.CommonDao
 import com.example.jobsearchapp.ui.common.data.room.VacanciesEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class CommonLocalDataSource(private val dao: CommonDao) {
+class CommonLocalDataSource @Inject constructor(private val dao: CommonDao) {
 
     fun getVacanciesEntity(): Flow<List<VacanciesEntity>> {
         return dao.getALL()

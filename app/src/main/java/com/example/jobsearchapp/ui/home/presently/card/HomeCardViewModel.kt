@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class HomeCardViewModel(
     private val consumeVacanciesCardUseCase: ConsumeVacanciesCardUseCase,
     private val cardStateMapper: CardStateMapper,
-    private val vacanciesID: String
+    private val vacanciesID: String =""
 ) : ViewModel() {
     private val _state = MutableStateFlow(CardScreenStates())
     val state: StateFlow<CardScreenStates> = _state.asStateFlow()

@@ -1,4 +1,4 @@
-package com.example.jobsearchapp.ui.favorites.presently
+package com.example.jobsearchapp.ui.favorites.presently.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class FavoritesViewModel(
+class FavoritesViewModel (
     private val consumeFavoriteVacanciesUseCase: ConsumeFavoriteVacanciesUseCase,
     private val consumeVacanciesCardUseCase: ConsumeVacanciesCardUseCase,
     private val changeFavoriteStateUseCase: ChangeFavoriteStateUseCase,

@@ -5,8 +5,10 @@ import com.example.jobsearchapp.ui.common.domain.models.AddressCommonDomainEntit
 import com.example.jobsearchapp.ui.common.domain.models.CommonDomainEntity
 import com.example.jobsearchapp.ui.common.domain.models.ExperienceDomainEntity
 import com.example.jobsearchapp.ui.common.domain.models.SalaryDomainEntity
+import javax.inject.Inject
 
-class CommonDomainMapper {
+class CommonDomainMapper @Inject constructor(){
+
     fun toCommonDomainEntity(vacancies: VacanciesEntity): CommonDomainEntity {
         return CommonDomainEntity(
             id = vacancies.id,
