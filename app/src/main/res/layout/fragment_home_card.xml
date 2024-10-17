@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.presently.card.HomeCardFragment">
+    tools:context=".ui.vacanciesCard.HomeCardFragment">
 
     <TextView
         android:id="@+id/title"

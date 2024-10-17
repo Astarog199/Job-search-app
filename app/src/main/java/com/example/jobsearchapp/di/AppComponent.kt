@@ -2,8 +2,8 @@ package com.example.jobsearchapp.di
 
 import android.content.Context
 import com.example.jobsearchapp.ui.favorites.presently.di.FavoriteComponent
-import com.example.jobsearchapp.ui.home.presently.card.di.HomeCardComponent
-import com.example.jobsearchapp.ui.home.presently.list.di.HomeListComponent
+import com.example.jobsearchapp.ui.vacanciesCard.di.HomeCardComponent
+import com.example.jobsearchapp.ui.home.presently.HomeListComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

@@ -1,11 +1,12 @@
 package com.example.jobsearchapp.ui.common.data
 
-import com.example.jobsearchapp.ui.common.data.models.CommonDto
+import com.example.jobsearchapp.ui.common.data.room.VacanciesEntity
 import com.example.jobsearchapp.ui.common.domain.models.CommonDomainEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,17 +19,9 @@ class CommonRepository @Inject constructor(
     private val coroutineDispatcher: CoroutineDispatcher,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
-    private var dto = CommonDto(offers = emptyList(), vacancies = emptyList())
-
-    init {
-        scope.launch {
-            getApiService()
-            saveVacancies()
-        }
-    }
 
     fun consumeVacancies(): Flow<List<CommonDomainEntity>> {
-        return commonLocalDataSource.getVacanciesEntity()
+        return saveVacancies()
             .map {
                 it.map(commonDomainMapper::toCommonDomainEntity)
             }
@@ -48,12 +41,14 @@ class CommonRepository @Inject constructor(
         commonLocalDataSource.changeFavoriteState(entity)
     }
 
-    private suspend fun getApiService() {
-        dto = remoteDataSource.getDTO()
-    }
+    private fun saveVacancies() : Flow<List<VacanciesEntity>> {
+        scope.launch {
+            val vacancies = remoteDataSource.getDTO()
+            commonLocalDataSource.save(
+                vacancies.vacancies.map(commonDataMapper::toVacanciesEntity)
+            )
+        }
 
-    private suspend fun saveVacancies() {
-        val vacanciesEntity = dto.vacancies.map(commonDataMapper::toVacanciesEntity)
-        commonLocalDataSource.save(vacanciesEntity)
+        return commonLocalDataSource.getVacanciesEntity().flowOn(coroutineDispatcher)
     }
 }

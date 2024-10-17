@@ -1,4 +1,4 @@
-package com.example.jobsearchapp.ui.favorites.presently.list
+package com.example.jobsearchapp.ui.home.presently
 
 import android.content.Context
 import android.os.Bundle
@@ -15,26 +15,28 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import com.example.jobsearchapp.App
 import com.example.jobsearchapp.R
-import com.example.jobsearchapp.databinding.FragmentFavoritesBinding
-import com.example.jobsearchapp.ui.favorites.presently.adapter.FavoriteAdapter
-import com.example.jobsearchapp.ui.favorites.presently.list.states.FavoriteState
+import com.example.jobsearchapp.databinding.FragmentHomeBinding
+import com.example.jobsearchapp.ui.home.presently.adapter.HomeOffersAdapter
+import com.example.jobsearchapp.ui.home.presently.adapter.HomeVacanciesAdapter
+import com.example.jobsearchapp.ui.home.presently.states.OffersState
+import com.example.jobsearchapp.ui.home.presently.states.VacanciesState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class FavoritesFragment : Fragment() {
-
-    private var _binding: FragmentFavoritesBinding? = null
+class HomeFragment : Fragment() {
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
-    private val favoriteAdapter = FavoriteAdapter(
+    private val homeVacanciesAdapter = HomeVacanciesAdapter (
         onClick = { item -> onItemClick(item) },
         favoriteClick = {state -> changeFavoriteState(state)}
     )
 
+    private val homeOffersAdapter = HomeOffersAdapter()
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: FavoritesViewModel by viewModels {
+    private val viewModel: HomeViewModel by viewModels {
         viewModelFactory
     }
 
@@ -42,7 +44,7 @@ class FavoritesFragment : Fragment() {
         super.onAttach(context)
 
         (activity?.applicationContext as App).appComponent
-            .favoritesFragmentFactory()
+            .homeListFragmentFactory()
             .create()
             .inject(this)
     }
@@ -52,15 +54,16 @@ class FavoritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.recyclerView.adapter = homeVacanciesAdapter
+        binding.recyclerViewForOffers.adapter = homeOffersAdapter
 
-        binding.recyclerView.adapter = favoriteAdapter
         viewModel.loadItems()
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -75,7 +78,7 @@ class FavoritesFragment : Fragment() {
                         }
 
                         else -> {
-                            showList(state.favoriteList)
+                            showList(state.vacanciesList, state.offersList)
                         }
                     }
                 }
@@ -83,8 +86,9 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private fun showList(favoriteList: List<FavoriteState>) {
-        favoriteAdapter.setData(favoriteList)
+    private fun showList(vacanciesList: List<VacanciesState>, offersList: List<OffersState>) {
+        homeVacanciesAdapter.setData(vacanciesList)
+        homeOffersAdapter.setData(offersList)
 
         binding.recyclerView.visibility = View.VISIBLE
         binding.progressBar.visibility = View.GONE
@@ -103,16 +107,15 @@ class FavoritesFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun changeFavoriteState(state: FavoriteState) {
-        viewModel.changeFavoriteState(state)
-    }
-
-    private fun onItemClick(item: FavoriteState) {
+    private fun onItemClick(state: VacanciesState) {
         requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
             .navigate(
                 resId = R.id.action_main_to_details,
-                args = bundleOf("item" to item.id)
+                args = bundleOf("item" to state.id)
             )
+    }
+    private fun changeFavoriteState(state: VacanciesState) {
+        viewModel.changeFavoriteState(state)
     }
 
     override fun onDestroyView() {
