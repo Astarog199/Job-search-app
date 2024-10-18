@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.example.jobsearchapp.ui.home.presently.HomeFragment"
-        android:label="@string/title_search"
+        android:label=""
         tools:layout="@layout/fragment_home" />
 
     <fragment
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/navigation_search_card"
         android:name="com.example.jobsearchapp.ui.vacanciesCard.HomeCardFragment"
-        android:label="Vacancy page"
+        android:label=""
         tools:layout="@layout/fragment_home_card" />
 
     <fragment
