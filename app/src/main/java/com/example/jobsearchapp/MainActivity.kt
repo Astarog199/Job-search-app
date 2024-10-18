@@ -3,6 +3,8 @@ package com.example.jobsearchapp
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.red
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,6 +31,13 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val colorStateList = ContextCompat.getColorStateList(this, R.color.icon_state)
+        navView.itemIconTintList = colorStateList
+        navView.itemTextColor = colorStateList
+
+//        navView.getOrCreateBadge(R.id.navigation_favorites).number = 0
+
+
         val toolbar = findNavController(R.id.nav_host_fragment_activity_main)
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
@@ -35,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_search, R.id.navigation_favorites, R.id.navigation_notifications
+                R.id.navigation_search, R.id.navigation_favorites, R.id.navigation_notifications, R.id.navigation_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

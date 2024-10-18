@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:background="@color/backgroundItem"
+    android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.vacanciesCard.HomeCardFragment">
 
@@ -12,8 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="UI/UX Designer"
-        android:textColor="@color/black"
-        android:textSize="26dp"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:layout_marginTop="26dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Уровень дохода не указан"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -32,7 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Опыт от 1 до 3 лет"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/salary" />
@@ -42,11 +46,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Полная занятость, полный день"
-        android:textColor="@color/black"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/white"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experience" />
 
+    <TextView
+        android:id="@+id/item1"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:background="@color/dark_green"
+        android:padding="8dp"
+        android:layout_marginTop="24dp"
+        android:text="147 человек уже откликнулись"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedules" />
+
+    <TextView
+        android:id="@+id/item2"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/dark_green"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedules" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/green"
+        app:cornerRadius="8dp"
+        android:text="Откликнуться"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedules" />
 
     <ProgressBar
         android:id="@+id/progress"

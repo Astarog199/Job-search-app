@@ -26,8 +26,15 @@
     <fragment
         android:id="@+id/navigation_search_card"
         android:name="com.example.jobsearchapp.ui.vacanciesCard.HomeCardFragment"
-        android:label=""
+        android:label="Vacancy page"
         tools:layout="@layout/fragment_home_card" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.jobsearchapp.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile"
+        />
 
     <action
         android:id="@+id/action_main_to_details"

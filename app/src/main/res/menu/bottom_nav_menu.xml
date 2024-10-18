@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_search"
-        android:icon="@drawable/baseline_search_24"
+        android:icon="@drawable/icon_search"
         android:title="@string/title_search" />
 
     <item
@@ -13,19 +13,18 @@
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/baseline_mail_24"
+        android:icon="@drawable/icon_responses"
         android:title="@string/title_responses" />
 
     <item
 
-        android:icon="@drawable/baseline_message_24"
+        android:icon="@drawable/icon_message"
         android:title="@string/title_message"
         />
 
     <item
-        android:icon="@drawable/profile_24"
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/icon_profile"
         android:title="@string/title_profile"
         />
-
-
 </menu>
